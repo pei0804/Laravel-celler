@@ -1,11 +1,10 @@
 <?php
-
 use App\Base\BaseSeeder;
 use App\Model\Accounts;
-use Illuminate\Support\Facades\DB;
+use App\Model\Bottles;
 use Carbon\Carbon;
 
-class AccountsTableSeeder extends BaseSeeder
+class BottlesTableSeeder extends BaseSeeder
 {
     /**
      * Run the database seeds.
@@ -14,14 +13,16 @@ class AccountsTableSeeder extends BaseSeeder
      */
     public function run()
     {
-        DB::table('accounts')->delete();
+        DB::table('bottles')->delete();
 
         for ($i = 0; $i < 30; $i++) {
-            Accounts::create([
+            $account = Accounts::all('id')->random();
+            Bottles::create([
                 'name' => $this->faker->name,
-                'email' => $this->faker->email,
+                'quantity' => 1,
                 'created_at' => Carbon::today(),
-                'updated_at' => Carbon::today()
+                'updated_at' => Carbon::today(),
+                'account_id' => $account->id,
             ]);
         }
     }
