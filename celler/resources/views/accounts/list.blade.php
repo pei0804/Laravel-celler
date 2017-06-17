@@ -14,8 +14,18 @@
 </head>
 <body>
 <div class="container">
+    <!-- 吐き出されれるHTMLを確認してください -->
+    {!! Form::open(['method' => 'get']) !!}
+    <div class="form-group">
+        {!! Form::label('email', 'Email:') !!}
+        {!! Form::text('email', null, ['class' => 'form-control']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::submit('検索', ['class' => 'btn btn-primary form-control']) !!}
+    </div>
+    {!! Form::close() !!}
+    <hr>
     <h1>accounts</h1>
-    {{HTML::link('http://test.com')}}
     <table class="table">
         <tr>
             <th>ID</th>
@@ -33,7 +43,9 @@
                 <td>{{$account->created_at}}</td>
             </tr>
         @empty
-            no tasks
+            <tr>
+                <td colspan="5">no tasks</td>
+            </tr>
         @endforelse
     </table>
 </div>

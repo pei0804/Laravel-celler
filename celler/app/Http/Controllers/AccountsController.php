@@ -8,7 +8,16 @@ class AccountsController extends Controller
 {
     public function index()
     {
-        $accounts = Accounts::all();
+        // getメソッドで送信されたemailというキーのパラメータを取得する
+        $searchEmail = \Request::get('email');
+        // クエリを作成開始する
+        $query = Accounts::query();
+        if(!empty($searchEmail)) {
+            // 検索をする場合は、queryを追加する
+            $query->where('email', 'like', '%'.$searchEmail.'%');
+        }
+        // 出来上がったqueryを実行する
+        $accounts = $query->get();
         return view('accounts.list',compact('accounts'));
     }
 
